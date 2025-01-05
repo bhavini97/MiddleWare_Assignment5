@@ -5,6 +5,7 @@ const adminRoutes = require('./routes/admin.js')
 const shopRoutes = require('./routes/shop.js');
 const contactRoutes = require('./routes/contact.js');
 const path = require('path')
+const errorController = require('./controllers/error.js');
 
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(express.static(path.join(__dirname,'/public')))
@@ -15,7 +16,5 @@ app.use(shopRoutes);
 app.use(contactRoutes);
 
 // catch all error url
-app.use((req,res,next)=>{
-    res.status(404).sendFile(path.join(__dirname,'/views/404.html'))
-})
+app.use(errorController.get404)
 app.listen(5000)
